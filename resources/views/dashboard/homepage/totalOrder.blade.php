@@ -55,10 +55,10 @@ fhhfgrhui
   <tbody>
     @foreach($allOrders as $singleOrder)
     <tr>
-      <th scope="row">{{ $singleOrder->orderTrackingId }}</th>
+      <th scope="row">{{ $singleOrder->relationBill->orderTrackingId  }}</th>
       <td>{{ $singleOrder->relationUser->name }}</td>
       <td>{{ $singleOrder->relationUser->email }}</td>
-      <td>৳ {{ $singleOrder->totalAmount }}</td>
+      <td>৳ {{ $singleOrder->tot }}</td>
       <td>{{ $singleOrder->created_at }}</td>
       <td>
         @if ($singleOrder->actionStatus == 0)

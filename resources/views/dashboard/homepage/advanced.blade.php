@@ -12,7 +12,7 @@
                     <h2>Dashboard</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Aero</a></li>
-                        <li class="breadcrumb-item active">New Orders</li>
+                        <li class="breadcrumb-item active">Canceled Orders</li>
                     </ul>
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -49,22 +49,21 @@ fhhfgrhui
       <th scope="col">Email</th>
       <th scope="col">Amount</th>
       <th scope="col">Date</th>
-      <th scope="col">Status</th>
+      {{-- <th scope="col">Status</th> --}}
     </tr>
   </thead>
   <tbody>
     @foreach($allOrders as $singleOrder)
     <tr>
-      <th scope="row">{{ $singleOrder->relationBill->orderTrackingId  }}</th>
+      <th scope="row">{{ $singleOrder->relationBill->orderTrackingId }}</th>
       <td>{{ $singleOrder->relationUser->name }}</td>
       <td>{{ $singleOrder->relationUser->email }}</td>
       <td>৳ {{ $singleOrder->tot }}</td>
       <td>{{ $singleOrder->created_at }}</td>
-      <td>
-        @if ($singleOrder->actionStatus == 0)
-
+      {{-- <td>
+        @if($singleOrder->actionStatus == 4)
           <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre="">
-            <span class="caret"><span class="badge badge-pill badge-primary">New Order</span></span>
+            <span class="caret"><span class="badge badge-pill badge-danger">Canceled</span></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1" x-placement="top-end" x-out-of-boundaries="" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(384px, 183px, 0px);">
           <a class="dropdown-item" href=" {{url('change/action/status')}}/{{$singleOrder->id}}/1 ">
@@ -76,12 +75,11 @@ fhhfgrhui
           <a class="dropdown-item" href=" {{url('change/action/status')}}/{{$singleOrder->id}}/3 ">
                   Confirm
           </a>
-          <a class="dropdown-item" href=" {{url('change/action/status')}}/{{$singleOrder->id}}/4 ">
-                  Cancel
-          </a>
+
           </div>
+
         @endif
-      </td>
+      </td> --}}
     </tr>
   @endforeach
   </tbody>

@@ -15,6 +15,9 @@
  Route::get('/v1/dashboard/confirmed/order','OrderController@confirmedorder')->name('confirmedorder');
  Route::get('/v1/dashboard/canceled/order','OrderController@canceledorder')->name('canceledorder');
 
+ Route::get('/v1/dashboard/cash/on/delivery/order','OrderController@cash')->name('cash');
+ Route::get('/v1/dashboard/advanced/payment/order','OrderController@advanced')->name('advanced');
+
  Route::get('/change/action/status/{id}/{action}','OrderController@changeactionstatus')->name('changeactionstatus');
 
 

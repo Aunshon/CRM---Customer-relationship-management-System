@@ -23,8 +23,8 @@
                     <li><a href="{{ route('followuporder') }}">Follow Up</a></li>
                     <li><a href="{{ route('confirmedorder') }}">Confirmed</a></li>
                     <li><a href="{{ route('canceledorder') }}">Canceled</a></li>
-                    <li><a href="contact.html">Cash On Delivery</a></li>
-                    <li><a href="contact.html">Advance Payment</a></li>
+                    <li><a href="{{ route('cash') }}">Cash On Delivery</a></li>
+                    <li><a href="{{ route('advanced') }}">Advance Payment</a></li>
                 </ul>
             </li>
 

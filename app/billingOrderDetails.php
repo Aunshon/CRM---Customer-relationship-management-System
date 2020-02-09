@@ -11,4 +11,8 @@ class billingOrderDetails extends Model
   {
     return $this->hasOne('App\User','id','userId');
   }
+  function relationBill()
+  {
+    return $this->hasOne('App\orders','id','order_id');
+  }
 }

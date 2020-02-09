@@ -67,8 +67,18 @@ class OrderController extends Controller
       ]);
       return back();
     }
+    function cash(){
+      $allOrders = billingOrderDetails::where('paymentType',1)->paginate(30);
+      // echo $allOrders;
+      return view('dashboard.homepage.cash',compact('allOrders'));
 
+    }
+    function advanced(){
+      $allOrders = billingOrderDetails::where('paymentType',2)->paginate(30);
+      // echo $allOrders;
+      return view('dashboard.homepage.advanced',compact('allOrders'));
 
+    }
 
 
     // Controller Class End Here
