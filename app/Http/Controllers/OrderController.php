@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\orders;
+use Carbon\Carbon;
 use App\billingOrderDetails;
 
 class OrderController extends Controller
@@ -77,6 +78,37 @@ class OrderController extends Controller
       $allOrders = billingOrderDetails::where('paymentType',2)->paginate(30);
       // echo $allOrders;
       return view('dashboard.homepage.advanced',compact('allOrders'));
+
+    }
+    function searchOrder(Request $request){
+
+      $afterSearch = '';
+      if($request->from == '' && $request->to ==''){
+
+          $userName = $request->userName; //
+          $orderId = $request->orderId; //
+          $phone = $request->phone; //
+          // $transactionId = $request->transactionId;
+          $afterSearch = billingOrderDetails::where('userName', 'LIKE', "%" . $userName . "%")
+          ->where('orderTrackingId', 'LIKE', "%" . $orderId . "%")
+          ->where('phone', 'LIKE', "%" . $phone . "%")
+          ->get();
+
+      }
+      else{
+        $from = date($request->from); //cant empy
+        $to = date($request->to);  //cant empy
+        $userName = $request->userName; //
+        $orderId = $request->orderId; //
+        $phone = $request->phone; //
+        // $transactionId = $request->transactionId;
+        $afterSearch = billingOrderDetails::whereBetween('created_at',[$from,$to])
+        ->where('userName', 'LIKE', "%" . $userName . "%")
+        ->where('orderTrackingId', 'LIKE', "%" . $orderId . "%")
+        ->where('phone', 'LIKE', "%" . $phone . "%")
+        ->get();
+      }
+      echo $afterSearch;
 
     }
 

@@ -36,7 +36,7 @@
                               <h5>{{ $totalOrder }}</h5>
                               <span><i class="zmdi zmdi-eye col-amber"></i> Total Order</span>
                           </div>
-                          <div class="sparkline" data-type="bar" data-width="97%" data-height="55px" data-bar-Width="3" data-bar-Spacing="5" data-bar-Color="#FFC107">5,2,3,7,6,4,8,1</div>
+                          <div class="sparkline" data-type="bar" data-width="97%" data-height="55px" data-bar-Width="3" data-bar-Spacing="5" data-bar-Color="#FFC107">5,2,3,7,6,4,8,1100</div>
                       </div>
                   </div>
               </div>

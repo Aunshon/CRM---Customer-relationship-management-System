@@ -20,6 +20,8 @@
 
  Route::get('/change/action/status/{id}/{action}','OrderController@changeactionstatus')->name('changeactionstatus');
 
+ // Search orders
+ Route::post('/searchOrder','OrderController@searchOrder')->name('searchOrder');
 
  // Order Tesk Ends Here
 
@@ -51,6 +53,8 @@ Route::post('/v1/dashboard/add/product/create','ProductController@create')->name
 // product_trash
 Route::get('/v1/dashboard/trash/product/{product_id}/{slug}','ProductController@product_trash')->name('product_trash');
 // END:ProdcutController
+
+
 
 
 // END: Dashboard Area
