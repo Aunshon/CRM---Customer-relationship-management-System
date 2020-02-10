@@ -92,8 +92,9 @@ class OrderController extends Controller
           $afterSearch = billingOrderDetails::where('userName', 'LIKE', "%" . $userName . "%")
           ->where('orderTrackingId', 'LIKE', "%" . $orderId . "%")
           ->where('phone', 'LIKE', "%" . $phone . "%")
-          ->get();
-
+          ->paginate(30);
+          // echo $afterSearch;
+          return view('dashboard.homepage.orderSearchResult',compact('afterSearch'));
       }
       else{
         $from = date($request->from); //cant empy
@@ -106,9 +107,11 @@ class OrderController extends Controller
         ->where('userName', 'LIKE', "%" . $userName . "%")
         ->where('orderTrackingId', 'LIKE', "%" . $orderId . "%")
         ->where('phone', 'LIKE', "%" . $phone . "%")
-        ->get();
+        ->paginate(30);
+        // echo $afterSearch;
+        return view('dashboard.homepage.orderSearchResult',compact('afterSearch'));
       }
-      echo $afterSearch;
+
 
     }
 

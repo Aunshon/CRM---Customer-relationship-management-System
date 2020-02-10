@@ -22,6 +22,7 @@
 
  // Search orders
  Route::post('/searchOrder','OrderController@searchOrder')->name('searchOrder');
+ // Route::get('/v1/dashboard/order/search/result','OrderController@orderSearchResult')->name('orderSearchResult');
 
  // Order Tesk Ends Here
 
