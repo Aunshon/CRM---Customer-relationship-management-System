@@ -37,8 +37,10 @@ class OrderController extends Controller
     $topPId = array();
     $topQ = array();
 
-
-    foreach($allOrder as $single){
+    $allConfirmedOrder = billingOrderDetails::where('actionStatus',3)->get();
+    // $allConfirmedOrder = billingOrderDetails::all();
+    // echo $allConfirmedOrder;
+    foreach($allConfirmedOrder as $single){
       if (in_array($single->userId, $topUserId)) {
         $index = array_search($single->userId, $topUserId);
         $topUserIdamount[$index] = $topUserIdamount[$index]+1;
@@ -50,6 +52,8 @@ class OrderController extends Controller
     }
 
     foreach($allOrderCart as $single){
+      if(billingOrderDetails::where('order_id',$single->orderID)->first()->actionStatus == 3){
+
       if (in_array($single->product_id , $topPId)) {
         $index = array_search($single->product_id, $topPId);
         $topQ[$index] = $topQ[$index]+1;
@@ -57,6 +61,7 @@ class OrderController extends Controller
       else{
         array_push($topPId, $single->product_id );
         array_push($topQ, 1);
+      }
       }
     }
 
