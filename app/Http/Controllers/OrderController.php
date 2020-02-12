@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\orders;
 use Carbon\Carbon;
 use App\billingOrderDetails;
+use App\product;
+use App\orderedCarts;
 
 class OrderController extends Controller
 {
@@ -18,6 +20,8 @@ class OrderController extends Controller
   function index()
   {
     $totalOrder = billingOrderDetails::all()->count();
+    $allOrder = billingOrderDetails::all();
+    $allOrderCart = orderedCarts::all();
     $newOrder = billingOrderDetails::where('actionStatus',0)->count();
     $pendingOrder = billingOrderDetails::where('actionStatus',1)->count();
     $followupOrder = billingOrderDetails::where('actionStatus',2)->count();
@@ -27,9 +31,97 @@ class OrderController extends Controller
     $cashOnDelivery = billingOrderDetails::where('paymentType',1)->count();
     $advancedPayment = billingOrderDetails::where('paymentType',2)->count();
 
+    $topUserId = array();
+    $topUserIdamount = array();
+
+    $topPId = array();
+    $topQ = array();
 
 
-    return view('dashboard.homepage.index',compact('totalOrder','newOrder','pendingOrder','followupOrder','confirmOrder','cancelOrder','cashOnDelivery','advancedPayment'));
+    foreach($allOrder as $single){
+      if (in_array($single->userId, $topUserId)) {
+        $index = array_search($single->userId, $topUserId);
+        $topUserIdamount[$index] = $topUserIdamount[$index]+1;
+      }
+      else{
+        array_push($topUserId, $single->userId );
+        array_push($topUserIdamount, 1);
+      }
+    }
+
+    foreach($allOrderCart as $single){
+      if (in_array($single->product_id , $topPId)) {
+        $index = array_search($single->product_id, $topPId);
+        $topQ[$index] = $topQ[$index]+1;
+      }
+      else{
+        array_push($topPId, $single->product_id );
+        array_push($topQ, 1);
+      }
+    }
+
+    // print user and Amount
+    // foreach($topUserId as $key => $single){
+    //   echo  "Key : ".$key ."      User: ".$single."   Amount: " .$topUserIdamount[$key]."<br>";
+    // }
+    // print product and Amount
+    // foreach($topPId as $key => $single){
+    //   echo  "Key : ".$key ."      product id: ".$single."   Number bought: " .$topQ[$key]."<br>";
+    // }
+
+    // print_r($topUserId);
+    // print_r($topUserIdamount);
+    //array.splice(index, 1);
+    //array_search (max($topUserIdamount), $topUserIdamount) max amount index
+    // echo "<br>";
+
+    // while(count($topUserIdamount)){
+    //   // echo array_search (max($topUserIdamount), $topUserIdamount)."<br>";
+    //   $key = array_search (max($topUserIdamount), $topUserIdamount);
+    //   echo  "Key : ".$key."      User: ".$topUserId[$key]."   Amount: " .$topUserIdamount[$key]."<br>";
+    //   unset($topUserIdamount[array_search (max($topUserIdamount), $topUserIdamount)]);
+    // }
+    // product
+    // while(count($topQ)){
+    //   // echo array_search (max($topUserIdamount), $topUserIdamount)."<br>";
+    //   $key = array_search (max($topQ), $topQ);
+    //   echo  "Key : ".$key."      User: ".$topPId[$key]."   Amount: " .$topQ[$key]."<br>";
+    //   unset($topQ[array_search (max($topQ), $topQ)]);
+    // }
+
+    // Vendor
+    $vendorP = $topPId;
+    $vendorQ = $topQ;
+
+    $topVendorId = array();
+    $topVendorSale = array();
+    $topVendorPAmount= array();
+
+    while(count($vendorQ)){
+      $key = array_search (max($vendorQ), $vendorQ);
+      $vendorId = product::findOrFail($vendorP[$key])->user_id;
+      // echo  "Key : ".$key."      Product_Id: ".$vendorP[$key]."   vendor_id: ".$vendorId ."   Amount: " .$vendorQ[$key]."<br>";
+
+      if (in_array($vendorId , $topVendorId)) {
+        $index = array_search($vendorId, $topVendorId);
+        $topVendorSale[$index] = $topVendorSale[$index]+((product::findOrFail($vendorP[$key])->product_price)*$vendorQ[$key]);
+        $topVendorPAmount[$index] += $vendorQ[$key];
+      }
+      else{
+        array_push($topVendorId, $vendorId);
+        array_push($topVendorSale, (product::findOrFail($vendorP[$key])->product_price )*$vendorQ[$key]);
+        array_push($topVendorPAmount, $vendorQ[$key]);
+      }
+
+
+      unset($vendorQ[array_search (max($vendorQ), $vendorQ)]);
+    }
+    // foreach($topVendorId as $key => $single){
+    //   echo  "Key : ".$key ."      vendor_id: ".$single."   Sale: " .$topVendorSale[$key]."   p_amount: ".$topVendorPAmount[$key]."<br>";
+    // }
+    return view('dashboard.homepage.index',compact('totalOrder','newOrder','pendingOrder','followupOrder','confirmOrder','cancelOrder','cashOnDelivery','advancedPayment','topUserId','topUserIdamount','topQ','topPId','vendorP','vendorQ','topVendorId','topVendorSale','topVendorPAmount'));
+
+
   }
     function totalorder(){
       $allOrders = billingOrderDetails::paginate(30);

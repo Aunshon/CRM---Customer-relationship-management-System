@@ -187,71 +187,31 @@
                           <tr>
                               <th>Image</th>
                               <th>Product Name</th>
-                              <th>Price</th>
+                              <th>Total sale</th>
 
                           </tr>
                       </thead>
                       <tbody>
+                        @while (count($topQ))
+                          @php
+                          $key = array_search (max($topQ), $topQ);
+                          // echo  "Key : ".$key."      P ID: ".$topPId[$key]."   Amount: " .$topQ[$key]."<br>";
+                          @endphp
                           <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
+                              <td><span class="social_icon linkedin"><img src="{{asset('uploads/product')}}/{{App\product::findOrFail($topPId[$key])->photo}}" width="50"alt="P"></i></span>
                               </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
+                              <td><span class="list-name">{{ App\product::findOrFail($topPId[$key])->product_name }}</span>
+                                  <span class="text-muted">Total Sold {{ $topQ[$key] }} Piece</span>
                               </td>
 
                               <td>
-                                  <span class="badge badge-success">2341</span>
+                                  <span class="badge badge-success">৳ {{ $topQ[$key] * (App\product::findOrFail($topPId[$key])->product_price ) }}</span>
                               </td>
                           </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
+                          @php
+                            unset($topQ[array_search (max($topQ), $topQ)]);
+                          @endphp
+                        @endwhile
                       </tbody>
                   </table>
               </div>
@@ -286,66 +246,20 @@
                           </tr>
                       </thead>
                       <tbody>
+
+                        @foreach($topVendorId as $key => $single)
                           <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
+                              <td><span class="social_icon linkedin">V</i></span>
                               </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
+                              <td><span class="list-name">{{ App\User::findOrFail($single)->name }}</span>
+                                  <span class="text-muted">Total Sold {{ $topVendorPAmount[$key] }} Piece</span>
                               </td>
 
                               <td>
-                                  <span class="badge badge-success">2341</span>
+                                  <span class="badge badge-success">৳ {{ $topVendorSale[$key] }}</span>
                               </td>
                           </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
+                        @endforeach
                       </tbody>
                   </table>
               </div>
@@ -373,73 +287,34 @@
                   <table class="table table-hover c_table">
                       <thead>
                           <tr>
-                              <th>Image</th>
-                              <th>Name</th>
+                              {{-- <th>Image</th> --}}
+                              <th>Info.</th>
                               <th>Cost</th>
 
                           </tr>
                       </thead>
                       <tbody>
+                        @while (count($topUserIdamount))
+                          @php
+                          $key = array_search (max($topUserIdamount), $topUserIdamount);
+                          // echo  "Key : ".$key."      User: ".$topUserId[$key]."   Amount: " .$topUserIdamount[$key]."<br>";
+                          // unset($topUserIdamount[array_search (max($topUserIdamount), $topUserIdamount)]);
+                          @endphp
                           <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
+                              {{-- <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span> --}}
                               </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
+                              <td><span class="list-name">{{ App\User::findOrFail($topUserId[$key])->name }}</span>
+                                  <span class="text-muted">{{ App\User::findOrFail($topUserId[$key])->email  }}</span>
                               </td>
 
                               <td>
-                                  <span class="badge badge-success">2341</span>
+                                  <span class="badge badge-success">৳ {{ App\billingOrderDetails::where('userId',$topUserId[$key])->sum('tot')}}</span>
                               </td>
                           </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
-                          <tr>
-                              <td><span class="social_icon linkedin"><i class="zmdi zmdi-linkedin"></i></span>
-                              </td>
-                              <td><span class="list-name">Linked In</span>
-                                  <span class="text-muted">Florida, United States</span>
-                              </td>
-
-                              <td>
-                                  <span class="badge badge-success">2341</span>
-                              </td>
-                          </tr>
-
+                          @php
+                            unset($topUserIdamount[array_search (max($topUserIdamount), $topUserIdamount)]);
+                          @endphp
+                        @endwhile
                       </tbody>
                   </table>
               </div>
