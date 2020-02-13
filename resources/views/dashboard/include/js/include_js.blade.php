@@ -10,7 +10,7 @@
 <!-- VENDOR JS -->
 <!-- Jquery Core Js -->
 
-<script src="{{ asset('dashboard/assets/plugins/jquery-validation/jquery.validate.js') }}"></script> 
+<script src="{{ asset('dashboard/assets/plugins/jquery-validation/jquery.validate.js') }}"></script>
 <!-- Jquery Validation Plugin Css -->
 <script src="{{ asset('dashboard/assets/plugins/jquery-steps/jquery.steps.js') }}"></script>
 <!-- JQuery Steps Plugin Js -->
@@ -27,3 +27,4 @@
 
 <script src="{{ asset('dashboard/assets/bundles/mainscripts.bundle.js') }}"></script>
 <script src="{{ asset('dashboard/assets/js/pages/index.js') }}"></script>
+<script src="{{ asset('dashboard/assets/js/pages/myCustomPdfMaker.js') }}"></script>

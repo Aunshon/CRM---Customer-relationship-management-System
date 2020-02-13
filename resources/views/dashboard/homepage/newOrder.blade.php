@@ -40,8 +40,8 @@ fhhfgrhui
 
 
 
-
-          <table class="table">
+  <button onclick="makePdf();" type="button" name="makePdf" class="btn btn-primary">PDF</button>
+  <table class="table" id="printMe">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Order Id</th>
@@ -86,6 +86,7 @@ fhhfgrhui
   @endforeach
   </tbody>
   {{ $allOrders->links() }}
+
 </table>
 
 
@@ -94,5 +95,8 @@ fhhfgrhui
 
       </div>
 </section>
+
+@endsection
+@section('custom_js')
 
 @endsection

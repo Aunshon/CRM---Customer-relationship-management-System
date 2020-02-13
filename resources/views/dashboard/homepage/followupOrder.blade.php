@@ -40,8 +40,8 @@ fhhfgrhui
 
 
 
-
-          <table class="table">
+  <button onclick="makePdf();" type="button" name="makePdf" class="btn btn-primary">PDF</button>
+          <table id="printMe" class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Order Id</th>
